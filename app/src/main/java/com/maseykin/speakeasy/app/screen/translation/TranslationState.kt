@@ -1,4 +1,4 @@
-package com.maseykin.speakeasy.app.screen
+package com.maseykin.speakeasy.app.screen.translation
 
 data class TranslationState(
     val sourceLang: String = "Russian",
