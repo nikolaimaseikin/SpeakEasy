@@ -25,7 +25,8 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.maseykin.speakeasy.app.screen.TranslationScreen
+import com.maseykin.speakeasy.app.screen.history.HistoryScreen
+import com.maseykin.speakeasy.app.screen.translation.TranslationScreen
 import com.maseykin.speakeasy.app.ui.theme.SpeakEasyTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -54,36 +55,41 @@ class MainActivity : ComponentActivity() {
                 navController,
                 startDestination = "translate"
             ) {
-                composable("chat") {
-
-                }
-                composable("camera") {
-
-                }
+//                composable("chat") {
+//
+//                }
+//                composable("camera") {
+//
+//                }
                 composable("translate") {
                     TranslationScreen()
                 }
                 composable("history") {
-
+                    HistoryScreen()
                 }
-                composable("favorites") {
-
-                }
+//                composable("favorites") {
+//
+//                }
             }
         }
     }
 
-    private val Destinations = listOf("chat", "camera", "translate", "history", "favorites")
+    //private val Destinations = listOf("chat", "camera", "translate", "history", "favorites")
+    private val Destinations = listOf("translate", "history")
 
     @Composable
     fun BottomNavigationBar(navController: NavController) {
         var selectedItem by rememberSaveable { mutableStateOf(2) }
+//        val icons = listOf(
+//            ImageVector.vectorResource(R.drawable.ic_mic),
+//            ImageVector.vectorResource(R.drawable.ic_camera),
+//            ImageVector.vectorResource(R.drawable.ic_translate),
+//            ImageVector.vectorResource(R.drawable.ic_history),
+//            ImageVector.vectorResource(R.drawable.ic_fav),
+//        )
         val icons = listOf(
-            ImageVector.vectorResource(R.drawable.ic_mic),
-            ImageVector.vectorResource(R.drawable.ic_camera),
             ImageVector.vectorResource(R.drawable.ic_translate),
             ImageVector.vectorResource(R.drawable.ic_history),
-            ImageVector.vectorResource(R.drawable.ic_fav),
         )
         NavigationBar(
             content = {
