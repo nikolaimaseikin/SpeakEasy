@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -18,14 +19,12 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun TextInput(
-    language: String,
     text: String,
     onTextChange: (String) -> Unit,
     onClearText: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
-        Text(text = language)
         OutlinedTextField(
             value = text,
             onValueChange = onTextChange,
@@ -46,7 +45,7 @@ fun TranslateButton(onTranslate: () -> Unit, modifier: Modifier = Modifier) {
         Button(
             onClick = onTranslate,
             modifier = Modifier
-                .align(Alignment.CenterEnd) // Aligns the button to the right side
+                .align(Alignment.Center)
                 .padding(top = 8.dp)
         ) {
             Text("Translate")
@@ -55,11 +54,21 @@ fun TranslateButton(onTranslate: () -> Unit, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun TranslationResult(result: String, modifier: Modifier = Modifier) {
+fun TranslationResult(
+    result: String,
+    onAddToFavorites: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     OutlinedTextField(
         value = result,
         onValueChange = {},
         readOnly = true,
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth(),
+        trailingIcon = {
+            IconButton(onClick = { onAddToFavorites() }) {
+                Icon(Icons.Default.Star, contentDescription = "Add to favorites")
+                //TODO: Добавить snackbar "Добавлено в избранное"
+            }
+        }
     )
 }

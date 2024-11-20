@@ -3,6 +3,7 @@ package com.maseykin.speakeasy.app.core.di
 import android.content.Context
 import com.maseykin.speakeasy.app.core.data.AppDatabase
 import com.maseykin.speakeasy.app.core.data.TranslationHistoryDao
+import com.maseykin.speakeasy.app.core.data.TranslationFavoritesDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,5 +25,11 @@ object DatabaseModule {
     @Singleton
     fun provideHistoryDao(db: AppDatabase): TranslationHistoryDao {
         return  db.translationHistoryDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideFavoritesDao(db: AppDatabase): TranslationFavoritesDao {
+        return  db.translationsFavoritesDao()
     }
 }

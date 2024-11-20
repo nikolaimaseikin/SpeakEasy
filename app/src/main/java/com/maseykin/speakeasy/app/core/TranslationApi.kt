@@ -2,6 +2,7 @@ package com.maseykin.speakeasy.app.core
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -13,6 +14,15 @@ interface TranslationApi {
         @Query("dl") destinationLanguage: String,
         @Query("text") text: String
     ): TranslationResponse
+
+    @GET("languages")
+    suspend fun getLanguages(): Map<String, String>
+
+    @Serializable
+    data class Language(
+        val code: String,
+        val name: String
+    )
 
     @Serializable
     data class TranslationResponse(
