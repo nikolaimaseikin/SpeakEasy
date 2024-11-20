@@ -1,4 +1,4 @@
-package com.maseykin.speakeasy.app.screen.history
+package com.maseykin.speakeasy.app.screen.favorites
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
@@ -15,26 +15,25 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.maseykin.speakeasy.app.core.data.TranslationHistory
+import com.maseykin.speakeasy.app.core.data.TranslationFavorites
 import java.text.SimpleDateFormat
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HistoryScreen(
-    viewModel: HistoryViewModel = hiltViewModel(),
+fun FavoritesScreen(
+    viewModel: FavoritesViewModel = hiltViewModel(),
     modifier: Modifier = Modifier,
 ) {
-    val historyList = viewModel.getHistory().collectAsState(initial = emptyList())
+    val favoritesList = viewModel.getFavorites().collectAsState(initial = emptyList())
 
     Column(
         modifier = modifier.fillMaxSize()
     ) {
-        TopAppBar(title = { Text("History") })
+        TopAppBar(title = { Text("Favorites") })
 
         LazyColumn(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)) {
-            items(historyList.value) { it ->
-                HistoryItem(it)
+            items(favoritesList.value) { it ->
+                FavoritesItem(it)
             }
         }
     }
@@ -42,10 +41,10 @@ fun HistoryScreen(
 
 @SuppressLint("SimpleDateFormat")
 @Composable
-fun HistoryItem(history: TranslationHistory) {
+fun FavoritesItem(favorites: TranslationFavorites) {
     Column(modifier = Modifier.padding(vertical = 8.dp)) {
-        Text(text = "Source: ${history.sourceText}")
-        Text(text = "Translation: ${history.translatedText}")
-        Text(text = "Timestamp: ${SimpleDateFormat().format(history.timestamp)}")
+        Text(text = "Source: ${favorites.sourceText}")
+        Text(text = "Translation: ${favorites.translatedText}")
+        Text(text = "Timestamp: ${SimpleDateFormat().format(favorites.timestamp)}")
     }
 }

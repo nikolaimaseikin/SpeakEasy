@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -25,6 +26,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.maseykin.speakeasy.app.screen.favorites.FavoritesScreen
 import com.maseykin.speakeasy.app.screen.history.HistoryScreen
 import com.maseykin.speakeasy.app.screen.translation.TranslationScreen
 import com.maseykin.speakeasy.app.ui.theme.SpeakEasyTheme
@@ -55,41 +57,28 @@ class MainActivity : ComponentActivity() {
                 navController,
                 startDestination = "translate"
             ) {
-//                composable("chat") {
-//
-//                }
-//                composable("camera") {
-//
-//                }
                 composable("translate") {
-                    TranslationScreen()
+                    TranslationScreen(modifier = Modifier.padding(bottom = innerPadding.calculateBottomPadding()))
                 }
                 composable("history") {
-                    HistoryScreen()
+                    HistoryScreen(modifier = Modifier.padding(bottom = innerPadding.calculateBottomPadding()))
                 }
-//                composable("favorites") {
-//
-//                }
+                composable("favorites") {
+                    FavoritesScreen(modifier = Modifier.padding(bottom = innerPadding.calculateBottomPadding()))
+                }
             }
         }
     }
 
-    //private val Destinations = listOf("chat", "camera", "translate", "history", "favorites")
-    private val Destinations = listOf("translate", "history")
+    private val Destinations = listOf("translate", "history", "favorites")
 
     @Composable
     fun BottomNavigationBar(navController: NavController) {
-        var selectedItem by rememberSaveable { mutableStateOf(2) }
-//        val icons = listOf(
-//            ImageVector.vectorResource(R.drawable.ic_mic),
-//            ImageVector.vectorResource(R.drawable.ic_camera),
-//            ImageVector.vectorResource(R.drawable.ic_translate),
-//            ImageVector.vectorResource(R.drawable.ic_history),
-//            ImageVector.vectorResource(R.drawable.ic_fav),
-//        )
+        var selectedItem by rememberSaveable { mutableStateOf(0) }
         val icons = listOf(
             ImageVector.vectorResource(R.drawable.ic_translate),
             ImageVector.vectorResource(R.drawable.ic_history),
+            ImageVector.vectorResource(R.drawable.ic_fav),
         )
         NavigationBar(
             content = {
